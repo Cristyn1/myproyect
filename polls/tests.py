@@ -1,4 +1,4 @@
-from django.test import TestCase
+#from django.test import TestCase
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -28,7 +28,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Crear un usuari STAFF sense permisos de creació ni eliminació
         staff_user = User.objects.create_user("staffuser", "staff@isardvdi.com", "staffpassword")
         staff_user.is_staff = True  # És staff però no superusuari
-        
         # Afegir només permisos de visualització d'usuaris
         user_content_type = ContentType.objects.get(app_label='auth', model='user')
         view_users_permission = Permission.objects.get(content_type=user_content_type, codename='view_user')
@@ -45,7 +44,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         """ Comprovar que l'usuari STAFF pot veure usuaris però no crear-ne ni eliminar-los """
 
         self.selenium.get(f"{self.live_server_url}/admin/")
-        
         # Login amb l'usuari STAFF
         username_input = self.selenium.find_element(By.NAME, "username")
         password_input = self.selenium.find_element(By.NAME, "password")
